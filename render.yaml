@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: tiktok-shortdrama-dashboard
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: DEEPSEEK_API_URL
+        value: https://api.deepseek.com/v1/chat/completions
+      - key: FLASK_DEBUG
+        value: "False"
+      - key: DATA_REFRESH_INTERVAL
+        value: "3600"
+    autoDeploy: true
